@@ -17,6 +17,11 @@
     font-family: arial;
     /* border: 1px solid white; */
 }
+.card #image
+{
+    height: 40px;
+    width: 40px;
+}
 #price 
 {
     color: grey;

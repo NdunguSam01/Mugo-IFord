@@ -45,9 +45,8 @@ include_once 'dbConfig.php';
         {
 
     ?>
-
         <div class="card">
-          <img src="./Assets/Uploads/<?php echo $row["image"]; ?>" class="img-responsive">
+          <img src="./Assets/Uploads/<?php echo $row["image"]; ?>" width="150px" height="130px">
           <p class="text-info"><?php echo $row["pname"]; ?></p>
           <p class="text-danger" id="price">Kshs <?php echo $row["price"]; ?></p>
           <p><button>Add to Cart</button></p>
