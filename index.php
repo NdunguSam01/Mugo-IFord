@@ -1,6 +1,44 @@
 <?php
+session_start();
 include_once 'dbConfig.php';
 
+if (isset($_POST["add"]))
+    {
+        if (isset($_SESSION["cart"]))
+        {
+            $item_array_id = array_column($_SESSION["cart"],"id");
+            if (!in_array($_GET["id"],$item_array_id))
+            {
+                $count = count($_SESSION["cart"]);
+                $item_array = array(
+                    'id' => $_GET["pid"],
+                    'pname' => $_POST["hidden_name"],
+                    'product_price' => $_POST["hidden_price"],
+                    'item_quantity' => $_POST["quantity"],
+                );
+                $_SESSION["cart"][$count] = $item_array;
+                
+                echo '<script>alert("Product has been added to cart!")</script>';
+                echo '<script>window.location="index.php"</script>';
+            }
+
+            else
+            {
+                echo '<script>alert("Product is already Added to Cart")</script>';
+                echo '<script>window.location="index"</script>';
+            }
+        }
+        else
+        {
+            $item_array = array(
+                'id' => $_GET["id"],
+                'pname' => $_POST["hidden_name"],
+                'product_price' => $_POST["hidden_price"],
+                'item_quantity' => $_POST["quantity"],
+            );
+            $_SESSION["cart"][0] = $item_array;
+        }
+    }
 ?>
 <!DOCTYPE <!DOCTYPE html>
 <html>
@@ -27,8 +65,17 @@ include_once 'dbConfig.php';
             })
         </script>
     </head>
-<body>
-
+<body onload="onLoadCart()">
+<script>
+    const onLoadCart=()=>
+{
+    let productNumbers=localStorage.getItem('cartNumbers');
+    if(productNumbers)
+    {
+        document.querySelector('.topnav-right span').textContent= productNumbers;
+    }
+}
+</script>
 <div id="navbar"></div>
 <!-- <div id="footer"></div> -->
 <div id="side"></div>
@@ -46,10 +93,13 @@ include_once 'dbConfig.php';
 
     ?>
         <div class="card">
-          <img src="./Assets/Uploads/<?php echo $row["image"]; ?>" width="150px" height="130px">
-          <p class="text-info"><?php echo $row["pname"]; ?></p>
-          <p class="text-danger" id="price">Kshs <?php echo $row["price"]; ?></p>
-          <p><button>Add to Cart</button></p>
+            <img id="image" src="./Assets/Uploads/<?php echo $row["image"]; ?>" width="150px" height="130px">
+            <p class="text-info" id="name"><?php echo $row["pname"]; ?></p>
+            <p class="text-danger" id="price">Kshs <?php echo $row["price"]; ?></p>
+            <input type="hidden" name="pname" value="<?=$row['pname']?>">
+            <input type="hidden" name="price" value="<?=$row['price']?>">
+            <!-- <input type="number" name="quantity" value="1"> -->
+          <p><button class="add-to-cart" onclick="add()">Add to Cart</button></p>
         </div>
 
 <?php
@@ -57,6 +107,6 @@ include_once 'dbConfig.php';
       }
 ?>
 </div>
-
+<script src="main.js"></script>
 </body>
 </html>

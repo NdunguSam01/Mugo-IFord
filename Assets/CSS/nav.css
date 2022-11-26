@@ -16,7 +16,7 @@
 .search-container 
 {
     float: left;
-    padding-left: 5em;
+    padding-left: 9em;
     height: 40px;
 }
 input[type=text] 
@@ -54,8 +54,8 @@ input[type=text]
 }
 .navbar a
 {
-    padding-right: 4em;
-    padding-left: 4em;
+    padding-right: 3em;
+    padding-left: 3em;
 }
 .topnav-right 
 {
@@ -65,7 +65,7 @@ input[type=text]
 {
     float: left;
     overflow: hidden;
-    padding-left: 6em;
+    padding-left: 5em;
     width: 200px;
 }
 .dropdown .dropbtn 
