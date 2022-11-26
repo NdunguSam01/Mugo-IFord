@@ -1,0 +1,44 @@
+.footer
+{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+.fa-facebook, .fa-twitter, .fa-whatsapp, .fa-instagram, .fa-envelope-o   
+{
+    padding: 20px;
+    width: 30px;
+    text-decoration: none;
+    border-radius: 70%;
+    font-family: Georgia, serif;
+    text-align: center;
+    font-size: 24px;
+}
+.fa-facebook 
+{
+  background: #3B5998;
+  color: white;
+}
+.fa-twitter 
+{
+  background: #55ACEE;
+  color: white;
+}
+.fa-whatsapp 
+{
+  background: green;
+  color: white;
+}
+.fa-instagram 
+{
+    background: #125688;
+    color: white;
+}
+.fa-envelope-o
+{
+    background: red;
+    color: white;
+}
