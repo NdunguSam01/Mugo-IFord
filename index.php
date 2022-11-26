@@ -96,10 +96,11 @@ if (isset($_POST["add"]))
             <img id="image" src="./Assets/Uploads/<?php echo $row["image"]; ?>" width="150px" height="130px">
             <p class="text-info" id="name"><?php echo $row["pname"]; ?></p>
             <p class="text-danger" id="price">Kshs <?php echo $row["price"]; ?></p>
+            <input type="hidden" name="id" value="<?=$row["id"]?>">
             <input type="hidden" name="pname" value="<?=$row['pname']?>">
             <input type="hidden" name="price" value="<?=$row['price']?>">
             <!-- <input type="number" name="quantity" value="1"> -->
-          <p><button class="add-to-cart" onclick="add()">Add to Cart</button></p>
+            <p><button class="add-to-cart" onclick="add()">Add to Cart</button></p>
         </div>
 
 <?php
