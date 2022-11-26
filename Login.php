@@ -2,7 +2,7 @@
 include 'dbConfig.php';
 session_start();
 
-if (isset($_POST['submit'])) 
+if (isset($_POST['register'])) 
 {
    $fname=$_POST['fname'];
    $lname=$_POST['lname'];
@@ -23,7 +23,7 @@ if (isset($_POST['submit']))
     if ($password==$confirmP) 
    {
       $password=md5($password);
-      $insert="INSERT INTO users (fname,;name,email,phone,username,password) VALUES ('$fname','$lname','$email','$phone','$username','$password')";
+      $insert="INSERT INTO users (fname,lname,email,phNo,userName,password) VALUES ('$fname','$lname','$email','$phone','$username','$password')";
       mysqli_query($con,$insert);
       echo '<script>alert("Information saved succesfully")</script>';
       echo '<script>window.location="Login.php"</script>';
@@ -39,14 +39,14 @@ if (isset($_POST['submit']))
 }
 elseif (isset($_POST['login'])) 
 {
-  $email=$_POST['email'];
+  $username=$_POST['username'];
   $password=$_POST['password'];
   $password=md5($password);
-  $query="SELECT * FROM users WHERE email='$email' AND password='$password'";
+  $query="SELECT * FROM users WHERE username='$username' AND password='$password'";
   $result=mysqli_query($con,$query);
   $row=mysqli_fetch_array($result);
 
-   if ($row['email']==$email && $row['password']==$password) 
+   if ($row['username']==$username && $row['password']==$password) 
    {
       $_SESSION['user']=$userName;
       $_SESSION['login_time_stamp']=time();
@@ -55,9 +55,8 @@ elseif (isset($_POST['login']))
    }
    else
    {
-      $_SESSION["error"]="Wrong username/password combination";
-      header("location:UserLogin.php");
-      array_push($errors, "wrong username/password combination");
+      echo '<script>alert("Wrong username/password combination")</script>';
+      header("location:Login");
    }
 }
 
@@ -91,9 +90,9 @@ elseif (isset($_POST['login']))
             <div class="form-inner">
 
                <!--Login form-->
-               <form action="Login.php" class="login">
+               <form method="POST" action="Login.php" class="login">
                   <div class="field">
-                     <input type="text" name="email" placeholder="Email Address" required>
+                     <input type="text" name="username" placeholder="Username" required>
                   </div>
                   <div class="field">
                      <input type="password" name="password" placeholder="Password" required>
@@ -101,7 +100,7 @@ elseif (isset($_POST['login']))
                   <div class="pass-link">
                      <a href="#">Forgot password?</a>
                      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                     <a href="index.php">Home</a>
+                     <a href="./">Home</a>
                   </div>
                   <div class="field btn">
                      <div class="btn-layer"></div>
@@ -114,7 +113,7 @@ elseif (isset($_POST['login']))
             <!--Login Code ends Here-->
 
             <!--Sign up form starts here-->
-               <form action="Login.php" class="signup">
+               <form action="Login" class="signup">
                   <div class="field">
                      <input type="text" name="fname" placeholder="First Name: " required autocomplete="off">
                   </div>
@@ -138,7 +137,7 @@ elseif (isset($_POST['login']))
                   </div>
                   <div class="field btn">
                      <div class="btn-layer"></div>
-                     <input type="submit" name="submit" value="Sign up" onclick="return confirm('Register account?')">
+                     <input type="submit" name="register" value="Sign up" onclick="return confirm('Register account?')">
                   </div>
                </form>
                <!--sIGN UP ENDS HERE-->

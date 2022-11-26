@@ -16,7 +16,7 @@
 .search-container 
 {
     float: left;
-    padding-left: 9em;
+    padding-left: 2em;
     height: 40px;
 }
 input[type=text] 
@@ -65,7 +65,7 @@ input[type=text]
 {
     float: left;
     overflow: hidden;
-    padding-left: 5em;
+    padding-left: 3em;
     width: 200px;
 }
 .dropdown .dropbtn 
