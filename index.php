@@ -67,7 +67,7 @@ if (isset($_POST["add"]))
     </head>
 <body>
         <div id="navbar"></div>
-        <!-- <div id="footer"></div> -->
+        <div id="footer"></div>
         <div id="side"></div>
 
 <div class="main">

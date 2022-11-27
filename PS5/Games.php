@@ -61,14 +61,14 @@ if (isset($_POST["add"]))
             {
                 $('#navbar').load('../Components/Nav.html');
                 $('#side').load('../Components/Side.html');
-                $('#footer').load('../Components/Footer.html');
+                $('#footer').load('../Footer.html');
             })
         </script>
     </head>
 <body>
     
     <div id="navbar"></div>
-    <!-- <div id="footer"></div> -->
+    <div id="footer"></div>
     <div id="side"></div>
     
 <div class="main">
@@ -100,14 +100,5 @@ if (isset($_POST["add"]))
 ?>
 </div>
 
-<!-- <div class="footer">
-    <a href='https://twitter.com'  title='Twitter Page' target="_blank" class="fa fa-twitter"></a>&ensp;
-    <a href='https://facebook.com'  title='Facebook Page' target="_blank" class="fa fa-facebook"></a>&ensp;
-    <a href='https://instagram.com' title='Instagram Page' target="_blank" class="fa fa-instagram"></a>&ensp;
-    <a href='mailto:ndungu.muigai01@gmail.com' title='Email address' target="_blank" class="fa fa-envelope-o"></a>&ensp;
-    <a href='https://web.whatsapp.com/send?phone=+254707251073' title='WhatsApp contact' target="_blank" class="fa fa-whatsapp"></a>
-</div> -->
-
-<script src="../main.js"></script>
 </body>
 </html>

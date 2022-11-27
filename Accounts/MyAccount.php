@@ -1,3 +1,11 @@
+<?php
+include_once '../Sessions.php';
+include_once '../dbConfig.php';
+$user=$_SESSION['user'];
+$query="SELECT * FROM users WHERE userName='$user'";
+$result=mysqli_query($con,$query);
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,43 +32,57 @@
     </head>
     <body>
         <div id="navbar"></div>
-        <!-- <div id="footer"></div> -->
+        <div id="footer"></div>
         <div id="side"></div>
         
         <div class="main">
-            <table>
-                <caption style="text-align: center;">User Details</caption>
-                <tr>
-                    <td>
-                        First name<br><br>
-                        <textarea readonly></textarea>
-                    </td>
-                    <td>
-                        Last name<br><br>
-                        <textarea readonly></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Email address<br><br>
-                        <textarea></textarea>
-                    </td>
-                    <td>
-                        Phone number<br><br>
-                        <textarea></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Username<br><br>
-                        <textarea readonly></textarea>
-                    </td>
-                    <td>
-                        Password<br><br>
-                        <textarea></textarea>
-                    </td>
-                </tr>
-            </table>
+            <?php
+           
+
+            if(mysqli_num_rows($result)>0)
+            {
+                while($row=mysqli_fetch_array($result))
+                {
+                    ?>
+
+                <table>
+                    <caption style="text-align: center;">User Details</caption>
+                    <tr>
+                        <td>
+                            First name<br><br>
+                            <textarea readonly><?php echo $row["fname"]; ?></textarea>
+                        </td>
+                        <td>
+                            Last name<br><br>
+                            <textarea readonly><?php echo $row["lname"]; ?></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Email address<br><br>
+                            <textarea><?php echo $row["email"]; ?></textarea>
+                        </td>
+                        <td>
+                            Phone number<br><br>
+                            <textarea><?php echo $row["phNo"]; ?></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Username<br><br>
+                            <textarea readonly><?php echo $row["userName"]; ?></textarea>
+                        </td>
+                        <td>
+                            Password<br><br>
+                            <textarea><?php echo $row["password"]; ?></textarea>
+                        </td>
+                    </tr>
+                </table>
+                <?php
+                }
+            }
+            ?>
+            
         </div>
     </body>
 </html>

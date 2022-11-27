@@ -108,6 +108,5 @@ if (isset($_POST["add"]))
     <a href='https://web.whatsapp.com/send?phone=+254707251073' title='WhatsApp contact' target="_blank" class="fa fa-whatsapp"></a>
 </div> -->
 
-<script src="../main.js"></script>
 </body>
 </html>

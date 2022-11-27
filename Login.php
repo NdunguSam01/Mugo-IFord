@@ -1,170 +1,58 @@
 <?php
-include 'dbConfig.php';
 session_start();
+include_once './dbConfig.php';
 
-if (isset($_POST['register'])) 
+if(isset($_POST['login']))
 {
-   $fname=$_POST['fname'];
-   $lname=$_POST['lname'];
-   $email=$_POST['email'];
-   $phone=$_POST['phone'];
-   $username=$_POST['username'];
-   $password=$_POST['password'];
-   $confirmP=$_POST['confirmP'];
+    $username=$_POST['username'];
+    $password=$_POST['password'];
 
-   $query=mysqli_query($con,"SELECT * FROM users WHERE username='$username' AND email='$email' ");
-   if (mysqli_num_rows($query)>0) 
-   {
-      echo '<script>alert("Username/email already exists")</script>';
-      echo '<script>window.location="Login.php"</script>';
-   }
-   else
-   {
-    if ($password==$confirmP) 
-   {
-      $password=md5($password);
-      $insert="INSERT INTO users (fname,lname,email,phNo,userName,password) VALUES ('$fname','$lname','$email','$phone','$username','$password')";
-      mysqli_query($con,$insert);
-      echo '<script>alert("Information saved succesfully")</script>';
-      echo '<script>window.location="Login.php"</script>';
+    $password=md5($password);
+    $query="SELECT * FROM users WHERE userName='$username' AND password='$password' ";
+    $result=mysqli_query($con,$query);
+    $row=mysqli_fetch_array($result);
 
-   } 
-   else
-   {
-      echo '<script>alert("Passwords do not match!")</script>';
-      echo '<script>window.location="Login.php"</script>';
-   } 
-   }
-
+    if($row['userName']==$username && $row['password']==$password)
+    {
+        $_SESSION['user']=$username;
+        $_SESSION['login-time']=time();
+        header("Location:Checkout");
+    }
+    else
+    {
+        echo '<script>window.alert("Login failed!")</script>';
+        header("Location:Login2");
+    }
 }
-elseif (isset($_POST['login'])) 
-{
-  $username=$_POST['username'];
-  $password=$_POST['password'];
-  $password=md5($password);
-  $query="SELECT * FROM users WHERE username='$username' AND password='$password'";
-  $result=mysqli_query($con,$query);
-  $row=mysqli_fetch_array($result);
-
-   if ($row['username']==$username && $row['password']==$password) 
-   {
-      $_SESSION['user']=$userName;
-      $_SESSION['login_time_stamp']=time();
-      echo '<script>alert("Welcome!")</script>';
-      header("Location:Cart.php");
-   }
-   else
-   {
-      echo '<script>alert("Wrong username/password combination")</script>';
-      header("location:Login");
-   }
-}
-
 ?>
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-   <head>
-      <meta charset="utf-8">
-      <title>Login Page</title>
-      <link rel="stylesheet" href="style.css">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </head>
-   <body>
-      <div class="wrapper">
-         <div class="title-text">
-            <div class="title login">
-               Login Form
-            </div>
-            <div class="title signup">
-               Signup Form
-            </div>
-         </div>
-         <div class="form-container">
-            <div class="slide-controls">
-               <input type="radio" name="slide" id="login" checked>
-               <input type="radio" name="slide" id="signup">
-               <label for="login" class="slide login">Login</label>
-               <label for="signup" class="slide signup">Signup</label>
-               <div class="slider-tab"></div>
-            </div>
-            <div class="form-inner">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="Login.css">
+    <title>Login Form</title>
+</head>
+<body>
+    <div class="login-page">
+        <div class="form">
+            <div class="login">
+                <div class="login-header">
+                    <h3>LOG IN</h3>
+                    <p>Please enter your credentials to log in.</p>
+                </div>
+                </div>
+            <form class="login-form" method="POST" action="Login" autocomplete="on">
+                <input type="text" name="username" placeholder="Username" autofocus required>
+                <input type="password" name="password" id="password" placeholder="Password" required>
+                <button type="submit" name="login">Log In</button>
+                <p class="message" style="float: left;"><a href="./">Home</a></p>
+                <p class="message" style="float: right;"><a href="./Register">Sign up</a></p>
+            </form>
+        </div>
+    </div>
 
-               <!--Login form-->
-               <form method="POST" action="Login.php" class="login">
-                  <div class="field">
-                     <input type="text" name="username" placeholder="Username" required>
-                  </div>
-                  <div class="field">
-                     <input type="password" name="password" placeholder="Password" required>
-                  </div>
-                  <div class="pass-link">
-                     <a href="#">Forgot password?</a>
-                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                     <a href="./">Home</a>
-                  </div>
-                  <div class="field btn">
-                     <div class="btn-layer"></div>
-                     <input type="submit" name="login" value="Login">
-                  </div>
-                  <!--<div class="signup-link">
-                     Not a member? <a href="">Signup now</a>
-                  </div>-->
-               </form>
-            <!--Login Code ends Here-->
-
-            <!--Sign up form starts here-->
-               <form action="Login" class="signup">
-                  <div class="field">
-                     <input type="text" name="fname" placeholder="First Name: " required autocomplete="off">
-                  </div>
-                  <div class="field">
-                     <input type="text" name="lname" placeholder="Last Name: " required autocomplete="off">
-                  </div>
-                  <div class="field">
-                     <input type="text" name="email" placeholder="Email Address" required autocomplete="off">
-                  </div>
-                  <div class="field">
-                     <input type="text" name="phone" placeholder="Phone Number: " required autocomplete="off">
-                  </div>
-                  <div class="field">
-                     <input type="text" name="username" placeholder="Username: " required autocomplete="off">
-                  </div>
-                  <div class="field">
-                     <input type="password" name="password" placeholder="Password" required autocomplete="off">
-                  </div>
-                  <div class="field">
-                     <input type="password" name="confirmP" placeholder="Confirm password" required autocomplete="off">
-                  </div>
-                  <div class="field btn">
-                     <div class="btn-layer"></div>
-                     <input type="submit" name="register" value="Sign up" onclick="return confirm('Register account?')">
-                  </div>
-               </form>
-               <!--sIGN UP ENDS HERE-->
-
-            </div>
-         </div>
-      </div>
-      <script>
-         const loginText = document.querySelector(".title-text .login");
-         const loginForm = document.querySelector("form.login");
-         const loginBtn = document.querySelector("label.login");
-         const signupBtn = document.querySelector("label.signup");
-         const signupLink = document.querySelector("form .signup-link a");
-         signupBtn.onclick = (()=>{
-           loginForm.style.marginLeft = "-50%";
-           loginText.style.marginLeft = "-50%";
-         });
-         loginBtn.onclick = (()=>
-         {
-           loginForm.style.marginLeft = "0%";
-           loginText.style.marginLeft = "0%";
-         });
-         signupLink.onclick = (()=>
-         {
-           signupBtn.click();
-           return false;
-         });
-      </script>
-   </body>
+</body>
 </html>
