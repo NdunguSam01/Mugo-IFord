@@ -55,74 +55,19 @@ if (isset($_POST["add"]))
         <link rel="stylesheet" href="../CSS/Side.css">
         <link rel="stylesheet" href="../CSS/Items.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script>
+            $(function()
+            {
+                $('#navbar').load('../Components/Nav.html');
+                $('#side').load('../Components/Side.html');
+                $('#footer').load('../Components/Footer.html');
+            })
+        </script>
     </head>
-<body onload="onLoadCart()">
-<script>
-    const onLoadCart=()=>
-{
-    let productNumbers=localStorage.getItem('cartNumbers');
-    if(productNumbers)
-    {
-        document.querySelector('.topnav-right span').textContent= productNumbers;
-    }
-}
-</script>
-<div class="navbar">
-    <img src='../Images/logo-white.png' alt='I-Ford Gaming' class='image'></img>
-    <div class="topnav-right">
-        <a href="../"><i class="fa fa-home">&ensp;Home</i></a>
-        <a href='../Cart'><i class="fa fa-shopping-cart">&ensp;Cart<span><sup>0</sup></span></i></a>
-        <div class="dropdown">
-            <button class="dropbtn">Account Details&ensp;<i class="fa fa-angle-down"></i>
-            </button>
-            <div class="dropdown-content">
-                <a href='../Accounts/MyAccount'><i class="fa fa-user">&nbsp;My Account</i></a>
-                <a href='../Accounts/Orders'><i class="fa fa-shopping-bag">&nbsp;Orders</i></a>
-                <a href='../Accounts/Inbox'><i class="fa fa-envelope">&nbsp;Inbox</i></a>
-                <a href='../Accounts/Saved'><i class="fa fa-heart">&nbsp;Saved Items</i></a>
-            </div>
-        </div>
-        <a href='../Help'><i class="fa fa-question-circle">&ensp;Help</i></a>
-    </div>   
-    
-</div>
-
-<div id="divMenu">    
-    <ul>    
-        <li><a>PlayStation 3&ensp;<i class="fa fa-angle-right" style="font-size:24px"></i></a>    
-            <ul>    
-                <li><a href="../PS3/Consoles">Consoles</a></li>    
-                <li><a href="../PS3/Controllers">Controllers</a></li>    
-                <li><a href="../PS3/Games">Digital Games</a></li>    
-            </ul>    
-        </li>         
-    </ul> 
-    <ul>    
-        <li><a>PlayStation 4&ensp;<i class="fa fa-angle-right" style="font-size:24px"></i></a>    
-            <ul>    
-                <li><a href="../PS4/Consoles">Consoles</a></li>    
-                <li><a href="../PS4/Controllers">Controllers</a></li>    
-                <li><a href="../PS4/Games">Games</a></li>    
-            </ul>    
-        </li>         
-    </ul>  
-    <ul>    
-        <li><a>PlayStation 5&ensp;<i class="fa fa-angle-right" style="font-size:24px"></i></a>    
-            <ul>    
-                <li><a href="../PS5/Consoles">Consoles</a></li>    
-                <li><a href="../PS5/Controllers">Controllers</a></li>    
-                <li><a href="../PS5/Games">Games</a></li>  
-            </ul>    
-        </li>         
-    </ul>    
-    <ul>    
-        <li><a>PC Games&ensp;&ensp;&ensp;<i class="fa fa-angle-right" style="font-size:24px"></i></a>    
-            <ul>    
-                <li><a href="../PC/Games">Games</a></li>   
-            </ul>    
-        </li>         
-    </ul>  
-</div> 
+<body>
+        <div id="navbar"></div>
+        <!-- <div id="footer"></div> -->
+        <div id="side"></div>
 
 <div class="main">
     <?php
