@@ -6,7 +6,6 @@ if(isset($_POST['register']))
     $fname=$_POST['fname'];
     $lname=$_POST['lname'];
     $email=$_POST['email'];
-    $phone=$_POST['phone'];
     $username=$_POST['username'];
     $password=$_POST['password'];
     $cpassword=$_POST['cpassword'];
@@ -14,7 +13,7 @@ if(isset($_POST['register']))
     if($password==$cpassword)
     {
         $password=md5($password);
-        $insert="INSERT INTO users(fname,lname,email,phNo,userName,password) VALUES('$fname','$lname','$email','$phone','$username','$password')";
+        $insert="INSERT INTO users(fname,lname,email,userName,password) VALUES('$fname','$lname','$email','$username','$password')";
         mysqli_query($con,$insert);
         echo '<script>window.alert("Registration succesful!")</script>';
         header("Location:Login");
@@ -41,7 +40,7 @@ if(isset($_POST['register']))
     <body>
         <div class="form">
         <center>
-        <form autocomplete="on">
+        <form autocomplete="on" method="POST" action="Register">
             <h2>Sign Up</h2>
             <p>Create your Account.</p>
             <table width="450px"> 

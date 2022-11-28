@@ -2,47 +2,6 @@
 session_start();
 include_once 'dbConfig.php';
 $message='';
-if(isset($_POST['add_to_cart']))
-{
-    if(isset($_COOKIE['shopping_cart']))
-    {
-        $cookie_data=stripslashes($_COOKIE['shopping_cart']);
-        $cart_data=json_decode($cookie_data, true);
-
-    }
-    else
-    {
-        $cart_data=array();
-    }
-
-    $item_id_list=array_column($cart_data, 'item_id');
-
-    if(in_array($_POST['hidden_id'],$item_id_list))
-    {
-        foreach($cart_data as $keys=>$values)
-        {
-            if ($cart_data[$keys]['item_id']==$_POST['hidden_id']) 
-            {
-                $cart_data[$keys]['item_quantity']= $cart_data[$keys]['item_quantity'] + $_POST['quantity'];
-            }
-        }
-    }
-    else
-    {
-
-        $item_array=array(
-            'item_id' => $_POST['hidden_id'],
-            'item_name' => $_POST['hidden_name'],
-            'item_price' => $_POST['hidden_price'],
-            'item_quantity' => $_POST['quantity'],
-        );
-        $cart_data[]= $item_array;
-    }
-    $item_data=json_encode($cart_data);
-    setcookie('shopping_cart', $item_data, time() + (86400*30));
-    header("location:Index?success=1");
-}
-
 if(isset($_GET["action"]))
 {
     if($_GET["action"]== "delete")
@@ -57,14 +16,14 @@ if(isset($_GET["action"]))
                 unset($cart_data[$keys]);
                 $item_data=json_encode($cart_data);
                 setcookie('shopping_cart', $item_data, time()+(86400*30));
-                header("location:Index?remove=1");
+                header("location:Cart?remove=1");
             }
         }
     }
     if($_GET["action"]=='clear')
     {
         setcookie('shopping_cart',"",time()-3600);
-        header("location:index?clearAll=1");
+        header("location:Cart?clearAll=1");
     }
 }
 
@@ -124,7 +83,7 @@ if(isset($_GET["clearAll"]))
     <h3>Order details</h3>
       <?php echo $message;?>
       <div align="right">
-        <a href="index?action=clear"><b>Clear cart</b></a> 
+        <a href="Cart?action=clear"><b>Clear cart</b></a> 
       </div>
       <table>
         <tr>
@@ -150,7 +109,7 @@ if(isset($_GET["clearAll"]))
                     <td><?php echo $values['item_quantity'];?></td>
                     <td>Kshs <?php echo $values['item_price'];?></td>
                     <td>Kshs <?php echo number_format($values['item_quantity'] * $values['item_price'], 2);?></td>
-                    <td><a href="index?action=delete&id=<?php echo $values['item_id'];?>"><i class="fa fa-trash"></i></a></td>
+                    <td><a href="Cart?action=delete&id=<?php echo $values['item_id'];?>"><i class="fa fa-trash"></i></a></td>
                 </tr>
                 <?php
                     $total=$total+($values['item_quantity'] * $values['item_price']);
