@@ -1,0 +1,82 @@
+body
+{
+    background-image: linear-gradient(80deg,#000,#08ac4b);
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+}
+::placeholder
+{
+    font-style: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #4CAF50;
+    font-weight: lighter;
+}
+input[type=text],textarea,input[type=password],input[type=Email]
+{
+    padding:10px;
+    border:solid black;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    border-radius: 10px;
+}
+label,td 
+{
+    color: #328f8a;
+    font-family: 'Courier New', Courier, monospace;
+} 
+label:after 
+{ 
+    content: ": " 
+}
+a 
+{
+    text-decoration: none;
+    font-size: 14px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 15px 0;
+    font-style: italic;
+    color: #4CAF50;
+    float:right;
+}
+a:hover
+{
+    color: greenyellow;
+}
+button[type=Submit]
+{
+    font-family: 'Times New Roman';
+    text-transform: uppercase;
+    outline: 0;
+    background-image: linear-gradient(80deg,#000,#08ac4b);
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+    border-radius: 12px;
+}
+h2
+{
+    color:aquamarine;
+    font-family: 'Gill Sans';
+}
+.form 
+{
+    position: relative;
+    z-index: 1;
+    background: #328f8a;
+    background-image: linear-gradient(80deg,#000,#08ac4b);
+    max-width: 400px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+p
+{
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    color: aquamarine;
+    font-size: large;
+}
