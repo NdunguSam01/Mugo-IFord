@@ -74,7 +74,7 @@ if (isset($_POST["add"]))
 <div class="main">
     <?php
       include_once '../dbConfig.php';
-      $query = "SELECT * FROM products WHERE category='pcgames' ";
+      $query = "SELECT * FROM products WHERE category='pcgame' ";
       $result = mysqli_query($con,$query);
       
       if(mysqli_num_rows($result) > 0) 
@@ -84,7 +84,7 @@ if (isset($_POST["add"]))
 
     ?>
         <div class="card">
-            <img src="../Uploads/<?php echo $row["image"]; ?>" width="150px" height="130px">
+            <img src="../Uploads/PC games/<?php echo $row["image"]; ?>" width="150px" height="130px">
             <p class="text-info"><?php echo $row["pname"]; ?></p>
             <p class="text-danger" >Kshs <?php echo $row["price"]; ?></p>
             <input type="hidden" name="id" value="<?=$row["id"]?>">
@@ -99,14 +99,6 @@ if (isset($_POST["add"]))
       }
 ?>
 </div>
-
-<!-- <div class="footer">
-    <a href='https://twitter.com'  title='Twitter Page' target="_blank" class="fa fa-twitter"></a>&ensp;
-    <a href='https://facebook.com'  title='Facebook Page' target="_blank" class="fa fa-facebook"></a>&ensp;
-    <a href='https://instagram.com' title='Instagram Page' target="_blank" class="fa fa-instagram"></a>&ensp;
-    <a href='mailto:ndungu.muigai01@gmail.com' title='Email address' target="_blank" class="fa fa-envelope-o"></a>&ensp;
-    <a href='https://web.whatsapp.com/send?phone=+254707251073' title='WhatsApp contact' target="_blank" class="fa fa-whatsapp"></a>
-</div> -->
 
 </body>
 </html>

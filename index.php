@@ -1,44 +1,94 @@
 <?php
 session_start();
 include_once 'dbConfig.php';
-
-if (isset($_POST["add"]))
+$message='';
+if(isset($_POST['add_to_cart']))
+{
+    if(isset($_COOKIE['shopping_cart']))
     {
-        if (isset($_SESSION["cart"]))
-        {
-            $item_array_id = array_column($_SESSION["cart"],"id");
-            if (!in_array($_GET["id"],$item_array_id))
-            {
-                $count = count($_SESSION["cart"]);
-                $item_array = array(
-                    'id' => $_GET["pid"],
-                    'pname' => $_POST["hidden_name"],
-                    'product_price' => $_POST["hidden_price"],
-                    'item_quantity' => $_POST["quantity"],
-                );
-                $_SESSION["cart"][$count] = $item_array;
-                
-                echo '<script>alert("Product has been added to cart!")</script>';
-                echo '<script>window.location="index.php"</script>';
-            }
+        $cookie_data=stripslashes($_COOKIE['shopping_cart']);
+        $cart_data=json_decode($cookie_data, true);
 
-            else
-            {
-                echo '<script>alert("Product is already Added to Cart")</script>';
-                echo '<script>window.location="index"</script>';
-            }
-        }
-        else
+    }
+    else
+    {
+        $cart_data=array();
+    }
+
+    $item_id_list=array_column($cart_data, 'item_id');
+
+    if(in_array($_POST['hidden_id'],$item_id_list))
+    {
+        foreach($cart_data as $keys=>$values)
         {
-            $item_array = array(
-                'id' => $_GET["id"],
-                'pname' => $_POST["hidden_name"],
-                'product_price' => $_POST["hidden_price"],
-                'item_quantity' => $_POST["quantity"],
-            );
-            $_SESSION["cart"][0] = $item_array;
+            if ($cart_data[$keys]['item_id']==$_POST['hidden_id']) 
+            {
+                $cart_data[$keys]['item_quantity']= $cart_data[$keys]['item_quantity'] + $_POST['quantity'];
+            }
         }
     }
+    else
+    {
+
+        $item_array=array(
+            'item_id' => $_POST['hidden_id'],
+            'item_name' => $_POST['hidden_name'],
+            'item_price' => $_POST['hidden_price'],
+            'item_quantity' => $_POST['quantity'],
+        );
+        $cart_data[]= $item_array;
+    }
+    $item_data=json_encode($cart_data);
+    setcookie('shopping_cart', $item_data, time() + (86400*30));
+    header("location:Index?success=1");
+}
+
+if(isset($_GET["action"]))
+{
+    if($_GET["action"]== "delete")
+    {
+        $cookie_data=stripslashes($_COOKIE['shopping_cart']);
+        $cart_data=json_decode($cookie_data, true);
+
+        foreach($cart_data as $keys=>$values)
+        {
+            if($cart_data[$keys]['item_id']== $_GET['id'])
+            {
+                unset($cart_data[$keys]);
+                $item_data=json_encode($cart_data);
+                setcookie('shopping_cart', $item_data, time()+(86400*30));
+                header("location:Index?remove=1");
+            }
+        }
+    }
+    if($_GET["action"]=='clear')
+    {
+        setcookie('shopping_cart',"",time()-3600);
+        header("location:index?clearAll=1");
+    }
+}
+
+
+if(isset($_GET["success"]))
+{
+    $message='
+        <p>Item added to cart</p>
+    ';
+}
+
+if(isset($_GET["remove"]))
+{
+    $message='
+    <p>Item removed from cart</p>
+    ';
+}
+if(isset($_GET["clearAll"]))
+{
+    $message='
+    <p>Shopping cart has been cleared!</p>
+    ';
+}
+
 ?>
 <!DOCTYPE <!DOCTYPE html>
 <html>
@@ -67,7 +117,7 @@ if (isset($_POST["add"]))
     </head>
 <body>
         <div id="navbar"></div>
-        <div id="footer"></div>
+        <!-- <div id="footer"></div> -->
         <div id="side"></div>
 
 <div class="main">
@@ -82,22 +132,76 @@ if (isset($_POST["add"]))
         {
 
     ?>
+    <form method="POST">
         <div class="card">
-            <img src="./Uploads/<?php echo $row["image"]; ?>" width="150px" height="130px">
+            <img src="./All Uploads/<?php echo $row["image"]; ?>" width="150px" height="130px">
             <p class="text-info"><?php echo $row["pname"]; ?></p>
             <p class="text-danger" >Kshs <?php echo $row["price"]; ?></p>
-            <input type="hidden" name="id" value="<?=$row["id"]?>">
-            <input type="hidden" name="pname" value="<?=$row['pname']?>">
-            <input type="hidden" name="price" value="<?=$row['price']?>">
-            <!-- <input type="number" name="quantity" value="1"> -->
-            <p><button class="add-to-cart" onclick="add()">Add to Cart</button></p>
+            <input type="number" name="quantity" value="1">
+            <input type="hidden" name="hidden_id" value="<?=$row["id"]?>">
+            <input type="hidden" name="hidden_name" value="<?=$row['pname']?>">
+            <input type="hidden" name="hidden_price" value="<?=$row['price']?>">
+            <p><button type="submit" name="add_to_cart">Add to Cart</button></p>
         </div>
+    </form>
 
 <?php
         }
       }
 ?>
 </div>
+    <div style="clear:both;">
+    <h3>Order details</h3>
+      <?php echo $message;?>
+      <div align="right">
+        <a href="index?action=clear"><b>Clear cart</b></a> 
+      </div>
+      <table>
+        <tr>
+            <th width="40%">Item name</th>
+            <th width="10%">Quantity</th>
+            <th width="20%">Price</th>
+            <th width="15%">Total</th>
+            <th width="5%">Action</th>
+        </tr>
+        <?php
+        if(isset($_COOKIE['shopping_cart']))
+        {
+            $total=0;
+            $cookie_data=stripslashes($_COOKIE['shopping_cart']);
+            $cart_data=json_decode($cookie_data, true);
 
+            foreach($cart_data as $keys => $values)
+            {
+                ?>
+
+                <tr>
+                    <td><?php echo $values['item_name'];?></td>
+                    <td><?php echo $values['item_quantity'];?></td>
+                    <td>Kshs <?php echo $values['item_price'];?></td>
+                    <td>Kshs <?php echo number_format($values['item_quantity'] * $values['item_price'], 2);?></td>
+                    <td><a href="index?action=delete&id=<?php echo $values['item_id'];?>"><i class="fa fa-trash"></i></a></td>
+                </tr>
+                <?php
+                    $total=$total+($values['item_quantity'] * $values['item_price']);
+            }
+            ?>
+                <tr>
+                    <td colspan="3" align="right">Total</td>
+                    <td align="right">Kshs <?php echo number_format($total, 2);?></td>
+                </tr>
+                <?php
+        }
+        else
+        {
+            echo '
+            <tr>
+                <td colspan"5" align="center">Cart is empty!</td>
+            </tr>
+            ';
+        }
+        ?>
+      </table>
+    </div>
 </body>
 </html>

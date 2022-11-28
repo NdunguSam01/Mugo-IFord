@@ -83,7 +83,7 @@ if (isset($_POST["add"]))
 
     ?>
         <div class="card">
-            <img src="../Uploads/<?php echo $row["image"]; ?>" width="150px" height="130px">
+            <img src="../Uploads/PS 5 controllers/<?php echo $row["image"]; ?>" width="150px" height="130px">
             <p class="text-info"><?php echo $row["pname"]; ?></p>
             <p class="text-danger" >Kshs <?php echo $row["price"]; ?></p>
             <input type="hidden" name="id" value="<?=$row["id"]?>">

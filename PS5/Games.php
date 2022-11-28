@@ -74,7 +74,7 @@ if (isset($_POST["add"]))
 <div class="main">
     <?php
       include_once '../dbConfig.php';
-      $query = "SELECT * FROM products WHERE category='ps5games' ";
+      $query = "SELECT * FROM products WHERE category='ps5game' ";
       $result = mysqli_query($con,$query);
       
       if(mysqli_num_rows($result) > 0) 
@@ -84,7 +84,7 @@ if (isset($_POST["add"]))
 
     ?>
         <div class="card">
-            <img src="../Uploads/<?php echo $row["image"]; ?>" width="150px" height="130px">
+            <img src="../Uploads/PS 5 games/<?php echo $row["image"]; ?>" width="150px" height="130px">
             <p class="text-info"><?php echo $row["pname"]; ?></p>
             <p class="text-danger" >Kshs <?php echo $row["price"]; ?></p>
             <input type="hidden" name="id" value="<?=$row["id"]?>">
