@@ -1,21 +1,27 @@
 .main 
 {
-    display: grid;
-    grid-template-columns: auto auto auto;
     margin-left: 220px; /* Same width as the sidebar + left position in px */
     font-size: 28px; /* Increased text to enable scrolling */
     padding: 100px 20px;
     color: white;
-    padding: 200px;
+    display: grid;
+    grid-template-columns: auto auto auto;
     gap: 10px;
 }
 .card 
 {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     max-width: 300px;
     top: inherit;
     text-align: center;
-    font-family: arial;   
+    font-family: arial;
+    /* border: 1px solid white; */
+}
+.card #image
+{
+    height: 40px;
+    width: 40px;
+    border: 1px solid white;
 }
 #price 
 {

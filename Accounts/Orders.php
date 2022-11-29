@@ -1,5 +1,6 @@
 <?php
-include_once '../Sessions.php';
+include_once '../Login/Sessions.php';
+session_start();
 include_once '../dbConfig.php';
 $user=$_SESSION['user'];
 $query="SELECT * FROM orders WHERE userName='$user'";

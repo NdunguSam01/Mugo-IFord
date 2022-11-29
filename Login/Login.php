@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once './dbConfig.php';
+include_once '../dbConfig.php';
 if(isset($_POST['login']))
 {
     $username=$_POST['username'];
@@ -31,7 +31,7 @@ if(isset($_POST['login']))
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">  
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="./CSS/Login.css">
+    <link rel="stylesheet" href="../CSS/Login.css">
     <title>Login Form</title>
 </head>
 <body>
@@ -47,7 +47,7 @@ if(isset($_POST['login']))
                 <input type="text" name="username" placeholder="Username" autofocus required>
                 <input type="password" name="password" id="password" placeholder="Password" required>
                 <button type="submit" name="login">Log In</button>
-                <p class="message" style="float: left;"><a href="./">Home</a></p>
+                <p class="message" style="float: left;"><a href="../">Home</a></p>
                 <p class="message" style="float: right;"><a href="./Register">Sign up</a></p>
             </form>
         </div>

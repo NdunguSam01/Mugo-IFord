@@ -59,11 +59,11 @@ if(isset($_GET["clearAll"]))
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- <link rel="stylesheet" href="./CSS/index.css"> -->
         <link rel="stylesheet" href="./CSS/nav.css">
         <link rel="stylesheet" href="./CSS/footer.css">
         <link rel="stylesheet" href="./CSS/Side.css">
         <link rel="stylesheet" href="./CSS/Items.css">
+        <link rel="stylesheet" href="./CSS/Cart.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">       
         <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>    
         <script>
@@ -76,10 +76,10 @@ if(isset($_GET["clearAll"]))
         </script>
     </head>
     <body>
-        <div id="navbar"></div>
+        <!-- <div id="navbar"></div> -->
         <!-- <div id="footer"></div> -->
         <div id="side"></div>
-    <div style="clear:both;">
+    <div style="clear:both;" class="cart">
     <h3>Order details</h3>
       <?php echo $message;?>
       <div align="right">

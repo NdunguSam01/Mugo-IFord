@@ -1,5 +1,6 @@
 <?php
-include_once '../Sessions.php';
+include_once '../Login/Sessions.php';
+session_start();
 include_once '../dbConfig.php';
 $user=$_SESSION['user'];
 $query="SELECT * FROM users WHERE userName='$user'";
@@ -38,7 +39,6 @@ $result=mysqli_query($con,$query);
         <div class="main">
             <?php
            
-
             if(mysqli_num_rows($result)>0)
             {
                 while($row=mysqli_fetch_array($result))
@@ -63,18 +63,8 @@ $result=mysqli_query($con,$query);
                             <textarea><?php echo $row["email"]; ?></textarea>
                         </td>
                         <td>
-                            Phone number<br><br>
-                            <textarea><?php echo $row["phNo"]; ?></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
                             Username<br><br>
                             <textarea readonly><?php echo $row["userName"]; ?></textarea>
-                        </td>
-                        <td>
-                            Password<br><br>
-                            <textarea><?php echo $row["password"]; ?></textarea>
                         </td>
                     </tr>
                 </table>
