@@ -1,5 +1,5 @@
 <?php
-include_once './dbConfig.php';
+include_once '../dbConfig.php';
 
 if(isset($_POST['register']))
 {
@@ -16,7 +16,7 @@ if(isset($_POST['register']))
         $insert="INSERT INTO users(fname,lname,email,userName,password) VALUES('$fname','$lname','$email','$username','$password')";
         mysqli_query($con,$insert);
         echo '<script>window.alert("Registration succesful!")</script>';
-        header("Location:Login");
+        header("Location:./Login");
     }
     else
     {
@@ -36,7 +36,7 @@ if(isset($_POST['register']))
     </head>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">  
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="./CSS/Register.css">
+    <link rel="stylesheet" href="../CSS/Register.css">
     <body>
         <div class="form">
         <center>

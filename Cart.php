@@ -37,9 +37,7 @@ if(isset($_GET["success"]))
 
 if(isset($_GET["remove"]))
 {
-    $message='
-    <p>Item removed from cart</p>
-    ';
+    echo '<script>alert("Item removed from cart!")</script>';
 }
 if(isset($_GET["clearAll"]))
 {
@@ -59,35 +57,68 @@ if(isset($_GET["clearAll"]))
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./CSS/index.css">
         <link rel="stylesheet" href="./CSS/nav.css">
         <link rel="stylesheet" href="./CSS/footer.css">
         <link rel="stylesheet" href="./CSS/Side.css">
         <link rel="stylesheet" href="./CSS/Items.css">
-        <link rel="stylesheet" href="./CSS/Cart.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">  
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">       
         <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>    
         <script>
             $(function()
             {
                 $('#navbar').load('./Nav.html');
-                // $('#side').load('./Side.html');
                 $('#footer').load('./Footer.html');
             })
         </script>
+        <style>
+table, td 
+{
+  top: 150px;
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding-left: 300px;
+}
+td,th 
+{
+  padding-top: 20px;
+  padding-right: 30px;
+  padding-bottom: 40px;
+  padding-left: 25px;
+  padding: 20px;
+  background-color: white;
+}
+th
+{
+  color: white;
+  background-color :rgba(255,255,255,0.3);;
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-style: italic;
+  font-weight: bolder;
+}
+tr:hover 
+{
+    background-color: black;
+}
+a,a:visited
+{
+    text-decoration: none;
+}
+
+    </style>
     </head>
     <body>
-        <!-- <div id="navbar"></div> -->
-        <!-- <div id="footer"></div> -->
-        <div id="side"></div>
-    <div style="clear:both;" class="cart">
-    <h3>Order details</h3>
+        <div id="navbar"></div>
+        <div id="footer"></div>
       <?php echo $message;?>
-      <div align="right">
-        <a href="Cart?action=clear"><b>Clear cart</b></a> 
-      </div>
-      <table>
+     
+      <table width="70%" align="center" style="padding-top: 200px;">
+      <h2 style="text-align: center;">Order details</h2>
         <tr>
-            <th width="40%">Item name</th>
+            <th width="30%">Item name</th>
             <th width="10%">Quantity</th>
             <th width="20%">Price</th>
             <th width="15%">Total</th>
@@ -106,10 +137,10 @@ if(isset($_GET["clearAll"]))
 
                 <tr>
                     <td><?php echo $values['item_name'];?></td>
-                    <td><?php echo $values['item_quantity'];?></td>
-                    <td>Kshs <?php echo $values['item_price'];?></td>
-                    <td>Kshs <?php echo number_format($values['item_quantity'] * $values['item_price'], 2);?></td>
-                    <td><a href="Cart?action=delete&id=<?php echo $values['item_id'];?>"><i class="fa fa-trash"></i></a></td>
+                    <td style="text-align: center;"><?php echo $values['item_quantity'];?></td>
+                    <td style="text-align: center;">Kshs <?php echo $values['item_price'];?></td>
+                    <td style="text-align: center;">Kshs <?php echo number_format($values['item_quantity'] * $values['item_price'], 2);?></td>
+                    <td style="text-align: center;"><a href="Cart?action=delete&id=<?php echo $values['item_id'];?>" onclick="return confirm('Remove item from cart?')"><i class="fa fa-trash"  onMouseOver="this.style.color='red'" onMouseOut="this.style.color='blue'" style="font-size: 20px;" ></i></a></td>
                 </tr>
                 <?php
                     $total=$total+($values['item_quantity'] * $values['item_price']);
@@ -117,7 +148,7 @@ if(isset($_GET["clearAll"]))
             ?>
                 <tr>
                     <td colspan="3" align="right">Total</td>
-                    <td align="right">Kshs <?php echo number_format($total, 2);?></td>
+                    <td style="text-align: center;">Kshs <?php echo number_format($total, 2);?></td>
                 </tr>
                 <?php
         }
@@ -131,6 +162,5 @@ if(isset($_GET["clearAll"]))
         }
         ?>
       </table>
-    </div>
     </body>
 </html>
