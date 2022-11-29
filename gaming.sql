@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2022 at 07:11 PM
+-- Generation Time: Nov 29, 2022 at 04:47 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -48,7 +48,7 @@ INSERT INTO `admin` (`adminID`, `userName`, `password`) VALUES
 
 CREATE TABLE `orders` (
   `itemID` int(11) DEFAULT NULL,
-  `pName` varchar(255) DEFAULT NULL,
+  `userID` int(11) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   `price` int(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -64,7 +64,6 @@ CREATE TABLE `products` (
   `pname` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `price` double DEFAULT NULL,
-  `person` varchar(255) DEFAULT NULL,
   `category` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -72,10 +71,17 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `pname`, `image`, `price`, `person`, `category`) VALUES
-(2, 'kvnndknd', 'Controller.jfif', 999, NULL, 'ps3controller'),
-(3, 'DINICDSKNCKSDN', 'PS5 Controller.jfif', 9999, NULL, 'ps5controller'),
-(4, 'dkvnkdsnvkds', 'PS3 Controller.jfif', 1818, NULL, 'ps3controller');
+INSERT INTO `products` (`id`, `pname`, `image`, `price`, `category`) VALUES
+(1, 'Apex Legends', 'Apex Legends.png', 9000, 'pcgame'),
+(2, 'Batman-Playstation 3 Skin', 'BATMAN - PLAYSTATION 3 SLIM PROTECTOR SKIN.jpeg', 9000, 'ps3console'),
+(3, 'Wood PS3 Controller', 'WOOD - PLAYSTATION 3 CONTROLLER SKIN.jpeg', 9000, 'ps3controller'),
+(4, 'Deadpool PS3 Game', 'Deadpool (PS3).jpeg', 9000, 'ps3game'),
+(5, 'Custom PS4 Controller', 'Custom Design Cube PS4 Pro Skin Sticker For Sony PlayStation 4 Console and Controllers PS4 Pro Skin Stickers Decal Vinyl.jpeg', 9000, 'ps4console'),
+(6, 'Blue Daemon PS4 Controller', 'Blue Daemon PS 4 controller.jpeg', 9000, 'ps4controller'),
+(7, 'Call of Duty Black Ops 4', 'Call of Duty_ Black Ops 4 - PlayStation 4.jpeg', 9000, 'ps4game'),
+(8, 'Cyberpunk PS5 Console', 'Cyberpunk PS 5 console.jpeg', 9000, 'ps5console'),
+(9, 'Rainbow Galaxy PS5 Controller', 'Rainbow Galaxy PS5 Controller Skin.png', 9000, 'ps5controller'),
+(10, 'FIFA 23 Standard Edition', 'FIFA 23 Standard Edition PS5 _ English.jpeg', 9000, 'ps5game');
 
 -- --------------------------------------------------------
 
@@ -87,10 +93,18 @@ CREATE TABLE `users` (
   `userID` int(11) NOT NULL,
   `fname` varchar(255) DEFAULT NULL,
   `lname` varchar(255) DEFAULT NULL,
-  `phNo` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
   `userName` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`userID`, `fname`, `lname`, `email`, `userName`, `password`) VALUES
+(1, 'SAMUEL', 'NDUNGU MUIGAI', 'muigaisam65@gmail.com', 'Muigai', 'fd81e5cb9f21c101a47f490515a53c6a'),
+(2, 'LJKCNV', 'KDNKSNK', 'sales.kensam@gmail.com', 'aaa', 'f1ffb7d1c352e610c124bfd13f907023');
 
 --
 -- Indexes for dumped tables
@@ -106,7 +120,8 @@ ALTER TABLE `admin`
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
-  ADD KEY `itemID` (`itemID`);
+  ADD KEY `itemID` (`itemID`),
+  ADD KEY `userID` (`userID`);
 
 --
 -- Indexes for table `products`
@@ -134,13 +149,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -150,7 +165,8 @@ ALTER TABLE `users`
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`itemID`) REFERENCES `products` (`id`);
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`itemID`) REFERENCES `products` (`id`),
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
