@@ -15,12 +15,12 @@ if(isset($_POST['login']))
     {
         $_SESSION['user']=$username;
         $_SESSION['login-time']=time();
-        header("Location:Checkout");
+        header("Location:../Accounts/MyAccount");
     }
     else
     {
         echo '<script>window.alert("Login failed!")</script>';
-        header("Location:Login2");
+        header("Location:Login");
     }
 }
 ?>

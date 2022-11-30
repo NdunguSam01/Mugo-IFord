@@ -35,10 +35,10 @@ if(isset($_GET["success"]))
     ';
 }
 
-if(isset($_GET["remove"]))
-{
-    echo '<script>alert("Item removed from cart!")</script>';
-}
+// if(isset($_GET["remove"]))
+// {
+//     echo '<script>alert("Item removed from cart!")</script>';
+// }
 if(isset($_GET["clearAll"]))
 {
     $message='
@@ -54,7 +54,7 @@ if(isset($_GET["clearAll"]))
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Cart Page</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="./CSS/index.css">
@@ -107,6 +107,18 @@ a,a:visited
 {
     text-decoration: none;
 }
+#checkout
+{
+    padding: 15px;
+    background-color: green;
+    color: white;
+    border:none;
+    font-size: 15px;
+}
+#checkout:hover
+{
+    background-color: greenyellow;
+}
 
     </style>
     </head>
@@ -114,7 +126,7 @@ a,a:visited
         <div id="navbar"></div>
         <div id="footer"></div>
       <?php echo $message;?>
-     
+    <form method="post" action="./Checkout">
       <table width="70%" align="center" style="padding-top: 200px;">
       <h2 style="text-align: center;">Order details</h2>
         <tr>
@@ -139,16 +151,23 @@ a,a:visited
                     <td><?php echo $values['item_name'];?></td>
                     <td style="text-align: center;"><?php echo $values['item_quantity'];?></td>
                     <td style="text-align: center;">Kshs <?php echo $values['item_price'];?></td>
-                    <td style="text-align: center;">Kshs <?php echo number_format($values['item_quantity'] * $values['item_price'], 2);?></td>
+                    <td style="text-align: left;">Kshs <?php echo number_format($values['item_quantity'] * $values['item_price'], 2);?></td>
                     <td style="text-align: center;"><a href="Cart?action=delete&id=<?php echo $values['item_id'];?>" onclick="return confirm('Remove item from cart?')"><i class="fa fa-trash"  onMouseOver="this.style.color='red'" onMouseOut="this.style.color='blue'" style="font-size: 20px;" ></i></a></td>
                 </tr>
                 <?php
                     $total=$total+($values['item_quantity'] * $values['item_price']);
+                    $_SESSION['amount']=$total;
+
             }
             ?>
                 <tr>
                     <td colspan="3" align="right">Total</td>
-                    <td style="text-align: center;">Kshs <?php echo number_format($total, 2);?></td>
+                    <td colspan="2" style="text-align: left;">Kshs <?php echo number_format($total, 2);?></td>
+                </tr>
+                <tr>
+                    <td colspan="5" align="right">
+                        <button type="submit" name="checkout" id="checkout">Checkout</button>
+                    </td>
                 </tr>
                 <?php
         }
@@ -162,5 +181,8 @@ a,a:visited
         }
         ?>
       </table>
+    </form>
+
+    
     </body>
 </html>

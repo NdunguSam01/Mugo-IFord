@@ -30,6 +30,25 @@ $result=mysqli_query($con,$query);
                 $('#footer').load('../Components/Footer.html');
             })
         </script>
+        <style>
+            table
+            {
+                width: 50%;
+                border-collapse: collapse;
+                border:1px solid white;
+                padding-left: 400px;
+            }
+            caption
+            {
+                color: white;
+                text-transform: uppercase;
+            }
+            tr,td
+            {
+                color: white;
+                padding-top: 20px;
+            }
+        </style>
     </head>
     <body>
         <div id="navbar"></div>

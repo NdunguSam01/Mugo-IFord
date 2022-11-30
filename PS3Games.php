@@ -48,7 +48,7 @@ if(isset($_POST['add_to_cart']))
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>I-Ford Gaming</title>    
+        <title>PlayStation 3 Games</title>    
         <link rel="icon" href="/Assets/Images/logo-white.png" />
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
