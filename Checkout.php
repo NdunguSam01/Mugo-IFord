@@ -81,9 +81,10 @@ if(isset($_POST['checkout']))
       <div class="card mt-5 px-3 py-4">
         <div class="d-flex flex-row justify-content-around">
           <div class="mpesa"><span>Mpesa </span></div>
-        </div>
+        </div><br>
+        <a href="./Cart" class="btn btn-success">Return to cart</a>
         <div class="media mt-4 pl-2">
-          <img src="./images/1200px-M-PESA_LOGO-01.svg.png" class="mr-3" height="75" />
+          <img src="./Images/MPesa.png" class="mr-3" height="75" />
           <div class="media-body">
             <h6 class="mt-1">Enter Amount & Number</h6>
           </div>
@@ -104,7 +105,6 @@ if(isset($_POST['checkout']))
              
                 <div class="col-12">
                   <button type="submit" class="btn btn-success" name="submit" value="submit">Pay</button>&emsp;&emsp;&emsp;&emsp;
-                  <button class="btn btn-success"><a href="./Cart">Return to cart</a></button>
                 </div>
               </form>
               <!--bs5 input-->
